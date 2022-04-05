@@ -12,7 +12,8 @@ function App() {
     const res = await api.get("/corpus");
 
     console.log("res", res);
-    //setCorpus(res);
+    //@ts-ignore
+    setCorpus(res);
   };
 
   const fetchById = async (id: number) => {
@@ -28,7 +29,7 @@ function App() {
   return (
     <div>
       <Select />
-      <Table />
+      <Table corpus={corpus} />
     </div>
   );
 }

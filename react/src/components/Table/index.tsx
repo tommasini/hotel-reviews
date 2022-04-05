@@ -78,8 +78,8 @@ const rows = [
     label: "happy",
   },
 ];
-
-export default function StickyHeadTable() {
+//@ts-ignore
+export default function StickyHeadTable({ corpus }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -112,8 +112,9 @@ export default function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
+            {corpus
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              //@ts-ignore
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
