@@ -8,6 +8,18 @@ import Select from "./components/Select";
 function App() {
   const [corpus, setCorpus] = useState(null);
 
+  const [textNumber, setTextNumber] = useState<any>();
+
+  const handleChangeText = (event: any) => {
+    setTextNumber({ ...textNumber, text: event.target.value });
+  };
+
+  const handleChangeNumber = (event: any) => {
+    const { value } = event.target;
+
+    setTextNumber({ ...textNumber, number: value });
+  };
+
   const fetch = async () => {
     const res = await api.get("/corpus");
 
@@ -26,10 +38,49 @@ function App() {
     fetch();
   }, []);
 
+  const onClick = async () => {};
+
   return (
-    <div>
-      <Select />
-      <Table corpus={corpus} />
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "red",
+      }}
+    >
+      {/* 
+        * lab1    
+        *
+          <Select />
+          <Table corpus={corpus} /> 
+        */}
+
+      <div
+        style={{
+          width: "300px",
+          height: "300px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <label htmlFor="text">Colocar texto</label>
+        <input id="text" onChange={handleChangeText} />
+        <label htmlFor="number">colocar número</label>
+        <input
+          id="number"
+          type="number"
+          maxLength={1}
+          onChange={handleChangeNumber}
+        />
+
+        <button onClick={onClick}>Click</button>
+      </div>
     </div>
   );
 }
