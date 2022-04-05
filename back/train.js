@@ -1,4 +1,4 @@
-const traningset = require('./database/traningset');
+import { traningset } from './database/traningset';
 
 class Train {
     constructor() {

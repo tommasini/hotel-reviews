@@ -1,5 +1,6 @@
-const { Pool } = require('pg');
-const credentials = require("./config");
+import pkg from 'pg';
+const { Pool } = pkg;
+import credentials from './config.js';
 
 async function getTrainingSet() {
     const pool = new Pool(credentials);

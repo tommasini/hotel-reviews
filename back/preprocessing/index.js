@@ -1,13 +1,13 @@
-const clean = require('./clean');
-const tokenization = require('./tokenization');
-const { stemmerWithNgram, stemmerWithSplit } = require('./stemming');
+import clean from './clean.js';
+import ngram from './tokenization.js';
+import { stemmerWithNgram, stemmerWithSplit } from './stemming.js';
 
-const index = (text, number) => {
+export default (text, number) => {
     const cleanedText = clean(text);
     console.log('cleanedText', cleanedText);
     const stemmedText = stemmerWithSplit(cleanedText);
     console.log('stemmedText', stemmedText);
-    const tokenization = tokenization(stemmedText, number);
+    const tokenization = ngram(stemmedText, number);
     console.log('tokenization', tokenization);
 
     return {
@@ -15,6 +15,4 @@ const index = (text, number) => {
         stemmedText,
         tokenization
     };
-};
-
-module.export = index;
+}

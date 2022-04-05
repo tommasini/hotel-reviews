@@ -1,8 +1,10 @@
-const { getDocument, getDocuments } = require("./database/corpus");
+import { getDocument, getDocuments } from "./database/corpus.js";
+import cleaner from "./preprocessing/index.js";
 
-var express = require("express");
-var cors = require("cors");
-var app = express();
+import express from 'express';
+import cors from "cors";
+
+const app = express();
 app.use(cors());
 
 app.get("/corpus", async function (req, res) {
@@ -18,6 +20,14 @@ app.get("/corpus/:id", async function (req, res) {
 
   var result = await getDocument(id);
   res.json(result[0]);
+});
+
+app.post("/cleaner", async function (req, res) {
+  var text = req.body.text;
+  var number = req.body.number;
+
+  var result = cleaner(text, number);
+  res.json(result);
 });
 
 var server = app.listen(8081, async function () {

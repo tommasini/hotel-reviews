@@ -1,7 +1,8 @@
-const { Pool } = require('pg');
-const credentials = require("./config");
+import pkg from 'pg';
+const { Pool } = pkg;
+import credentials from './config.js';
 
-async function getDocuments(label, limit) {
+export const getDocuments = async (label, limit) => {
     const pool = new Pool(credentials);
 
     var limitQuery = limit ? "limit $2" : "";
@@ -12,7 +13,7 @@ async function getDocuments(label, limit) {
     return rest.rows;
 }
 
-async function getDocument(id) {
+export const getDocument = async (id) => {
     const pool = new Pool(credentials);
 
     const rest = await pool.query(`SELECT * FROM corpus WHERE Id = $1`, [id]);
@@ -20,6 +21,3 @@ async function getDocument(id) {
 
     return rest.rows;
 }
-
-module.exports.getDocuments = getDocuments;
-module.exports.getDocument = getDocument;
