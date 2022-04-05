@@ -1,5 +1,5 @@
 import clean from './clean.js';
-import removeStopwordsfromInput from './stopwords';
+import removeStopwordsfromInput from './stopwords.js';
 import ngram from './tokenization.js';
 import { stemmerWithNgram, stemmerWithSplit } from './stemming.js';
 

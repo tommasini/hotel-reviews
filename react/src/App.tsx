@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   const onClick = async () => {
-    const res = await api.post("/cleander", {
+    const res = await api.post("/cleaner", {
       text: textNumber.text,
       number: textNumber.number,
     });

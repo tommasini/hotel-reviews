@@ -3,9 +3,13 @@ import cleaner from "./preprocessing/index.js";
 
 import express from 'express';
 import cors from "cors";
+import corsConfig from "./cors.js";
+import bodyParser from 'body-parser';
 
 const app = express();
-app.use(cors());
+app.use(cors(corsConfig));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/corpus", async function (req, res) {
   var limit = req.query.limit;
