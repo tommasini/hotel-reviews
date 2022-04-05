@@ -1,7 +1,7 @@
-const { stemmer } = require('stemmer');
-const nGram = require('./tokenization');
+import { stemmer } from 'stemmer';
+import ngram from './tokenization.js';
 
-const stemmerWithSplit = (text) => {
+export const stemmerWithSplit = (text) => {
     const arr = [];
 
     text.split(' ').map((word) => {
@@ -9,13 +9,10 @@ const stemmerWithSplit = (text) => {
     })
 }
 
-const stemmerWithNgram = (text, n) => {
+export const stemmerWithNgram = (text, n) => {
     const arr = [];
 
-    nGram(text, n).map((word) => {
+    ngram(text, n).map((word) => {
         arr.push(stemmer(word))
     })
 }
-
-module.exports.stemmerWithSplit = stemmerWithSplit;
-module.exports.stemmerWithNgram = stemmerWithNgram;

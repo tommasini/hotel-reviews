@@ -10,8 +10,6 @@ const removeSpecialCharactersAndNumbers = (input) => {
     return input.replace(/[^a-z ]/g, '');
 }
 
-const cleanInput = (input) => {
+export default (input) => {
     return removeSpecialCharactersAndNumbers(trim(toLowerCase(input)));
 }
-
-module.exports = cleanInput;
