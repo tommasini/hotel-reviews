@@ -90,6 +90,7 @@ function App() {
           <h1>{result.cleanedText}</h1>
           <h1>{result.stemmedText}</h1>
           <h1>{result.tokenization}</h1>
+          <h1>{result.stopWords}</h1>
         </div>)}
       </div>
     </div>
