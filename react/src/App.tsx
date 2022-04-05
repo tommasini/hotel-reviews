@@ -40,9 +40,12 @@ function App() {
   }, []);
 
   const onClick = async () => {
-    const res = await api.post('/cleander', {text: textNumber.text, number: textNumber.number})
+    const res = await api.post("/cleander", {
+      text: textNumber.text,
+      number: textNumber.number,
+    });
 
-    const setResult(res);
+    setResult(res);
   };
 
   return (
@@ -86,12 +89,14 @@ function App() {
 
         <button onClick={onClick}>Click</button>
 
-        {result &&(<div>
-          <h1>{result.cleanedText}</h1>
-          <h1>{result.stemmedText}</h1>
-          <h1>{result.tokenization}</h1>
-          <h1>{result.stopWords}</h1>
-        </div>)}
+        {result && (
+          <div>
+            <h1>{result.cleanedText}</h1>
+            <h1>{result.stemmedText}</h1>
+            <h1>{result.tokenization}</h1>
+            <h1>{result.stopWords}</h1>
+          </div>
+        )}
       </div>
     </div>
   );
