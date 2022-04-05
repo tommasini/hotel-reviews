@@ -9,6 +9,7 @@ function App() {
   const [corpus, setCorpus] = useState(null);
 
   const [textNumber, setTextNumber] = useState<any>();
+  const [result, setResult] = useState<any>(null);
 
   const handleChangeText = (event: any) => {
     setTextNumber({ ...textNumber, text: event.target.value });
@@ -38,7 +39,11 @@ function App() {
     fetch();
   }, []);
 
-  const onClick = async () => {};
+  const onClick = async () => {
+    const res = await api.post('/cleander', {text: textNumber.text, number: textNumber.number})
+
+    const setResult(res);
+  };
 
   return (
     <div
@@ -80,6 +85,12 @@ function App() {
         />
 
         <button onClick={onClick}>Click</button>
+
+        {result &&(<div>
+          <h1>{result.cleanedText}</h1>
+          <h1>{result.stemmedText}</h1>
+          <h1>{result.tokenization}</h1>
+        </div>)}
       </div>
     </div>
   );
