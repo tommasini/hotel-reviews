@@ -1,5 +1,5 @@
 import { removeStopwords, eng } from 'stopword';
 
-export default removeStopwordsfromInput = (input) => {
+export default (input) => {
     return removeStopwords(input, eng);
 }
