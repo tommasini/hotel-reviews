@@ -1,6 +1,7 @@
 import getTrainingSet from './database/traningset.js';
 import cleaner from './preprocessing/index.js';
 import fs from 'fs';
+import { addUniqueTerms, binaryVector, numberOfOccurrencesVector, tfVector, idfVector, tfIdfVector } from './features/bagofWords.js';
 
 export default class Train {
     async process() {
@@ -8,32 +9,60 @@ export default class Train {
         const happyDocs = corpus.filter((item) => { return item.label === 'happy' });
         const notHappyDocs = corpus.filter((item) => { return item.label === 'not happy' });
 
-        const happyResults = happyDocs.map((doc) => {
-            return {
-                id: doc.id,
-                n1: cleaner(doc.description, 1),
-                n2: cleaner(doc.description, 2)
-            }
-        });
+        const happyResultsProcessed = this.getResultsProcessed(happyDocs);
+        const happyUnigramsMetricsVectors = this.getMetricsVectors(happyResultsProcessed.uniqueTermsUnigrams, happyResultsProcessed.documentsProcessed.map((value) => value.n1.tokenization));
+        const happyBigramsMetricsVectors = this.getMetricsVectors(happyResultsProcessed.uniqueTermsBigrams, happyResultsProcessed.documentsProcessed.map((value) => value.n2.tokenization));
+
         console.log("====================== Happy Results =====================");
         fs.writeFile('results.txt', "====================== Happy Results =====================", 'UTF-8', () => { });
-        this.printInConsole(happyResults);
-        this.saveInTxt(happyResults);
+        this.printInConsole(happyResultsProcessed);
+        this.saveInTxt(happyResultsProcessed);
         fs.appendFile('results.txt', "\n", 'UTF-8', () => { });
         console.log("\n");
 
-        const notHappyResults = notHappyDocs.map((doc) => {
-            return {
-                id: doc.id,
-                n1: cleaner(doc.description, 1),
-                n2: cleaner(doc.description, 2)
-            }
-        });
-
+        const notHappyResultsProcessed = this.getResultsProcessed(notHappyDocs);
+        const notHappyUnigramsMetricsVectors = this.getMetricsVectors(notHappyResultsProcessed.uniqueTermsUnigrams, notHappyResultsProcessed.documentsProcessed.map((value) => value.n1.tokenization));
+        const notHappyBigramsMetricsVectors = this.getMetricsVectors(notHappyResultsProcessed.uniqueTermsBigrams, notHappyResultsProcessed.documentsProcessed.map((value) => value.n2.tokenization));
         console.log("====================== Not Happy Results =====================");
         fs.appendFile('results.txt', "====================== Not Happy Results =====================", 'UTF-8', () => { });
-        this.saveInTxt(notHappyResults);
-        this.printInConsole(notHappyResults);
+        this.saveInTxt(notHappyResultsProcessed);
+        this.printInConsole(notHappyResultsProcessed);
+    }
+
+    getMetricsVectors(bagOfWords, documents) {
+        return documents.map((terms) => {
+            return {
+                binaryVector: binaryVector(bagOfWords, terms),
+                numberOfOccurrencesVector: numberOfOccurrencesVector(bagOfWords, terms),
+                tfVector: tfVector(bagOfWords, terms),
+                idfVector: idfVector(bagOfWords, documents),
+                tfIdfVector: tfIdfVector(bagOfWords, terms, documents)
+            };
+        });
+    }
+
+    getResultsProcessed(docs) {
+        let uniqueTermsUnigrams = [];
+        let uniqueTermsBigrams = [];
+
+        let documentsProcessed = docs.map((doc) => {
+            var result = {
+                id: doc.id,
+                n1: cleaner(doc.description, 1),
+                n2: cleaner(doc.description, 2),
+            }
+
+            uniqueTermsUnigrams = addUniqueTerms(uniqueTermsUnigrams, result.n1.tokenization);
+            uniqueTermsBigrams = addUniqueTerms(uniqueTermsBigrams, result.n2.tokenization);
+
+            return result;
+        });
+
+        return {
+            uniqueTermsUnigrams,
+            uniqueTermsBigrams,
+            documentsProcessed
+        }
     }
 
     printInConsole(list) {

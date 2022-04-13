@@ -14,12 +14,19 @@ export default (text, number) => {
     console.log('stemmedText', stemmedText);
 
     const tokenization = ngram(stemmedText, number);
-    console.log('tokenization', tokenization);
+    const tokenizationParsed = tokenization.map((value) => {
+        if (value[1]) {
+            return `${value[0]} ${value[1]}`;
+        }
+
+        return value[0];
+    });
+    console.log('tokenizationParsed', tokenizationParsed);
 
     return {
         stopWords,
         cleanedText,
         stemmedText,
-        tokenization
+        tokenization: tokenizationParsed
     };
 }
