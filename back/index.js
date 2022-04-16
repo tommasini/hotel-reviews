@@ -1,6 +1,5 @@
 import { getDocument, getDocuments } from "./database/corpus.js";
 import cleaner from "./preprocessing/index.js";
-import train from "./train.js";
 
 import express from 'express';
 import cors from "cors";

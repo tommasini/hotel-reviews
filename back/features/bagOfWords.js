@@ -1,4 +1,5 @@
-import { numberOfOccurrences, tf, idf } from '../preprocessing/counting.js';
+import { numberOfOccurrences, tf, idf, tfidf } from '../preprocessing/counting.js';
+import Term from '../Term.js';
 
 export function addUniqueTerms(terms1, terms2) {
     var allTerms = new Set([
@@ -27,26 +28,27 @@ export function tfVector(bagOfWords, terms) {
     });
 }
 
-export function idfVector(bagOfWords, documents) {
-    return bagOfWords.map((word) => {
-        try {
-            var nDocuments = documents.filter((document) => document.find(term => term === word));
+export function sumVector(terms) {
+    let nDocuments = terms.filter(term => term.binary).length;
+    let totalOfDocuments = terms.length;
+    let idfValue = idf(totalOfDocuments, nDocuments);
+    var term = Term.partialCreation(terms[0].name, idfValue);
 
-            return idf(documents.length, nDocuments.length);
-        } catch (error) {
-            return null;
-        }
-
+    terms.forEach(element => {
+        term.incrementBinary(element.binary);
+        term.incrementOccurrences(element.occurrences);
+        term.incrementtf(element.tf);
+        term.incrementTFIDF(tfidf(element.tf, idfValue));
     });
+
+    return term;
 }
 
-export function tfIdfVector(bagOfWords, terms, documents) {
-    var tfVectorValues = tfVector(bagOfWords, terms);
-    var idfVectorValues = idfVector(bagOfWords, documents);
+export function avgVector(terms) {
+    var sumTerm = sumVector(terms);
+    sumTerm.setBinary(sumTerm.binary / terms.length);
+    sumTerm.setOccurrences(sumTerm.occurrences / terms.length);
+    sumTerm.setTF(sumTerm.tf / terms.length);
 
-    return bagOfWords.map((word, index) => {
-        var tf = tfVectorValues[index];
-        var idf = idfVectorValues[index];
-        return tf * idf;
-    });
+    return sumTerm;
 }

@@ -5,13 +5,10 @@ import { stemmerWithNgram, stemmerWithSplit } from './stemming.js';
 
 export default (text, number) => {
     const stopWords = removeStopwordsfromInput(text);
-    console.log('stopWords', stopWords);
 
     const cleanedText = clean(stopWords.join(' '));
-    console.log('cleanedText', cleanedText);
 
     const stemmedText = stemmerWithSplit(cleanedText);
-    console.log('stemmedText', stemmedText);
 
     const tokenization = ngram(stemmedText, number);
     const tokenizationParsed = tokenization.map((value) => {
@@ -21,12 +18,16 @@ export default (text, number) => {
 
         return value[0];
     });
-    console.log('tokenizationParsed', tokenizationParsed);
-
+    //deveria se remover os duplicados?
+    // tokenization: tokenizationParsed.filter(onlyUnique)
     return {
         stopWords,
         cleanedText,
         stemmedText,
         tokenization: tokenizationParsed
     };
+}
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
 }
