@@ -1,4 +1,4 @@
-import { numberOfOccurrences, tf, idf, tfidf } from '../preprocessing/counting.js';
+import { idf, tfidf } from '../preprocessing/counting.js';
 import Term from '../Term.js';
 
 export function addUniqueTerms(terms1, terms2) {

@@ -38,33 +38,39 @@ export default class Train {
         const happyDocs = corpus.filter((item) => { return item.label === 'happy' });
         const notHappyDocs = corpus.filter((item) => { return item.label === 'not happy' });
 
-        const happyResultsProcessed = this.getResultsProcessed(happyDocs);
-        const happyUnigramsMetricsVectors = this.getMetricsVectors(happyResultsProcessed.uniqueTermsUnigrams,
-            happyResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n1.tokenization, id: value.id } }));
-        const happyBigramsMetricsVectors = this.getMetricsVectors(happyResultsProcessed.uniqueTermsBigrams,
-            happyResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n2.tokenization, id: value.id } }));
+        var happyResults = this.processClass(happyDocs, "Happy");
+        var notHappyResults = this.processClass(notHappyDocs, "Not Happy");
+    }
 
-        var termsFormatted = this.getTermsFormatted(happyResultsProcessed.uniqueTermsUnigrams, happyUnigramsMetricsVectors);
+    processClass(documents, className) {
+        const classResultsProcessed = this.getResultsProcessed(documents);
+        const classUnigramsMetricsVectors = this.getMetricsVectors(classResultsProcessed.uniqueTermsUnigrams,
+            classResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n1.tokenization, id: value.id } }));
+        const classBigramsMetricsVectors = this.getMetricsVectors(classResultsProcessed.uniqueTermsBigrams,
+            classResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n2.tokenization, id: value.id } }));
+
+        var termsFormatted = this.getTermsFormatted(classResultsProcessed.uniqueTermsUnigrams, classUnigramsMetricsVectors);
         var termsSumMetrics = termsFormatted.map((value) => sumVector(value));
         var termsAvgMetrics = termsFormatted.map((value) => avgVector(value));
 
-        console.log("====================== Happy Results =====================");
-        fs.writeFile('results.txt', "====================== Happy Results =====================", 'UTF-8', () => { });
-        this.printInConsole(happyResultsProcessed.documentsProcessed);
-        this.saveInTxt(happyResultsProcessed.documentsProcessed);
-        fs.appendFile('results.txt', "\n", 'UTF-8', () => { });
+        var bigramsTermsFormatted = this.getTermsFormatted(classResultsProcessed.uniqueTermsBigrams, classBigramsMetricsVectors);
+        var bigramsTermsSumMetrics = bigramsTermsFormatted.map((value) => sumVector(value));
+        var bigramsTermsAvgMetrics = bigramsTermsFormatted.map((value) => avgVector(value));
+
+        let filename = `${className}-results.txt`;
+        console.log(`====================== ${className} Results =====================`);
+        fs.writeFile(filename, `====================== ${className} Results =====================`, 'UTF-8', () => { });
+        this.printInConsole(classResultsProcessed.documentsProcessed);
+        this.saveInTxt(classResultsProcessed.documentsProcessed, filename);
+        fs.appendFile(filename, "\n", 'UTF-8', () => { });
         console.log("\n");
 
-        const notHappyResultsProcessed = this.getResultsProcessed(notHappyDocs);
-        const notHappyUnigramsMetricsVectors = this.getMetricsVectors(notHappyResultsProcessed.uniqueTermsUnigrams,
-            notHappyResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n1.tokenization, id: value.id } }));
-        const notHappyBigramsMetricsVectors = this.getMetricsVectors(notHappyResultsProcessed.uniqueTermsBigrams,
-            notHappyResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n2.tokenization, id: value.id } }));
-
-        console.log("====================== Not Happy Results =====================");
-        fs.appendFile('results.txt', "====================== Not Happy Results =====================", 'UTF-8', () => { });
-        this.saveInTxt(notHappyResultsProcessed.documentsProcessed);
-        this.printInConsole(notHappyResultsProcessed.documentsProcessed);
+        return {
+            termsSumMetrics,
+            termsAvgMetrics,
+            bigramsTermsSumMetrics,
+            bigramsTermsAvgMetrics
+        }
     }
 
     getMetricsVectors(bagOfWords, documents) {
@@ -75,49 +81,6 @@ export default class Train {
                 numberOfOccurrencesVector: numberOfOccurrencesVector(bagOfWords, document.terms),
                 tfVector: tfVector(bagOfWords, document.terms)
             }
-        });
-    }
-
-    getMetricsVectors3(bagOfWords, documents) {
-        var vectors = getMetricsVectors(bagOfWords, documents);
-        let allTerms = documents.map(d => d.terms);
-        return bagOfWords.map((document) => {
-            let docId = document.id;
-            if (docId == 10334) {
-                console.log("k");
-            }
-            var results = {
-                binaryVector: binaryVector(bagOfWords, document.terms),
-                numberOfOccurrencesVector: numberOfOccurrencesVector(bagOfWords, document.terms),
-                tfVector: tfVector(bagOfWords, document.terms),
-                idfVector: idfVector(bagOfWords, allTerms),
-                tfIdfVector: tfIdfVector(bagOfWords, document.terms, allTerms)
-            };
-
-            return document.terms.map((value, i) =>
-                new Term(value, results.binaryVector[i], results.numberOfOccurrencesVector[i], results.tfVector[i], results.idfVector[i], results.tfIdfVector[i], docId)
-            );
-        });
-    }
-
-    getMetricsVectors2(bagOfWords, documents) {
-        let allTerms = documents.map(d => d.terms);
-        return documents.map((document) => {
-            let docId = document.id;
-            if (docId == 10334) {
-                console.log("k");
-            }
-            var results = {
-                binaryVector: binaryVector(bagOfWords, document.terms),
-                numberOfOccurrencesVector: numberOfOccurrencesVector(bagOfWords, document.terms),
-                tfVector: tfVector(bagOfWords, document.terms),
-                idfVector: idfVector(bagOfWords, allTerms),
-                tfIdfVector: tfIdfVector(bagOfWords, document.terms, allTerms)
-            };
-
-            return document.terms.map((value, i) =>
-                new Term(value, results.binaryVector[i], results.numberOfOccurrencesVector[i], results.tfVector[i], results.idfVector[i], results.tfIdfVector[i], docId)
-            );
         });
     }
 
@@ -161,7 +124,7 @@ export default class Train {
         });
     }
 
-    saveInTxt(list) {
+    saveInTxt(list, filename) {
         list.forEach((doc) => {
             let text = `\nDocument nº: ${doc.id}\n
                         N1 - stopWords: ${doc.n1.stopWords}\n
@@ -173,7 +136,7 @@ export default class Train {
                         N2 - cleanedText: ${doc.n2.cleanedText}\n
                         N2 - stemmedText: ${doc.n2.stemmedText}\n
                         N2 - tokenization: ${doc.n2.tokenization}\n\n`;
-            fs.appendFile('results.txt', text, 'UTF-8', () => { });
+            fs.appendFile(filename, text, 'UTF-8', () => { });
         });
     }
 }

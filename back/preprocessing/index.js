@@ -18,8 +18,7 @@ export default (text, number) => {
 
         return value[0];
     });
-    //deveria se remover os duplicados?
-    // tokenization: tokenizationParsed.filter(onlyUnique)
+
     return {
         stopWords,
         cleanedText,
