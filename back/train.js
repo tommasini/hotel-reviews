@@ -1,4 +1,4 @@
-import getTrainingSet from './database/traningset.js';
+import { getTrainingSet, saveResults } from './database/traningset.js';
 import cleaner from './preprocessing/index.js';
 import fs from 'fs';
 import { addUniqueTerms, binaryVector, numberOfOccurrencesVector, tfVector, sumVector, avgVector } from './features/bagofWords.js';
@@ -40,6 +40,16 @@ export default class Train {
 
         var happyResults = this.processClass(happyDocs, "Happy");
         var notHappyResults = this.processClass(notHappyDocs, "Not Happy");
+
+        await this.saveAllResults(happyResults, 'happy');
+        await this.saveAllResults(notHappyResults, 'not happy');
+    }
+
+    async saveAllResults(classResult, label) {
+        await saveResults(classResult.termsAvgMetrics, label, 'avg', 1);
+        await saveResults(classResult.termsSumMetrics, label, 'sum', 1);
+        await saveResults(classResult.bigramsTermsAvgMetrics, label, 'avg', 2);
+        await saveResults(classResult.bigramsTermsSumMetrics, label, 'sum', 2);
     }
 
     processClass(documents, className) {
