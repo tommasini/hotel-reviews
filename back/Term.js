@@ -30,6 +30,10 @@ export default class Term {
         this.idf = value;
     }
 
+    setTFIDF(value) {
+        this.tfidf = value;
+    }
+
     setBinary(value) {
         this.binary = value;
     }
@@ -47,5 +51,12 @@ export default class Term {
 Term.partialCreation = function (name, idf) {
     let term = new Term(name, 0, 0, 0, null);
     term.setIDF(idf);
+    return term;
+};
+
+Term.fullCreation = function (name, binary, occurrences, tf, idf, tfidf, docId) {
+    let term = new Term(name, binary, occurrences, tf, docId);
+    term.setIDF(idf);
+    term.setTFIDF(tfidf);
     return term;
 };

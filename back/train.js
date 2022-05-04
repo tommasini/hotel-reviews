@@ -1,8 +1,10 @@
-import { getTrainingSet, saveResults } from './database/traningset.js';
+import { getTrainingSet, saveResults, saveBestResults, loadResults } from './database/traningset.js';
 import cleaner from './preprocessing/index.js';
 import fs from 'fs';
 import { addUniqueTerms, binaryVector, numberOfOccurrencesVector, tfVector, sumVector, avgVector } from './features/bagofWords.js';
 import Term from './Term.js';
+import { selectKBest } from './features/featureSelection.js';
+
 /*var cp = [{
             browser: 'InternetExplorer',
             description: 'The room was small and messy',
@@ -23,7 +25,6 @@ import Term from './Term.js';
             label: 'happy'
         }];*/
 export default class Train {
-
     getTermsFormatted(bafOfWords, docVectors) {
         return bafOfWords.map((term, i) => {
             return docVectors.map((docVector) => {
@@ -41,15 +42,54 @@ export default class Train {
         var happyResults = this.processClass(happyDocs, "Happy");
         var notHappyResults = this.processClass(notHappyDocs, "Not Happy");
 
-        await this.saveAllResults(happyResults, 'happy');
-        await this.saveAllResults(notHappyResults, 'not happy');
+        const label1 = "Happy";
+        const label2 = "Not Happy";
+        await this.saveAllResults(happyResults, notHappyResults, label1, label2);
+
     }
 
-    async saveAllResults(classResult, label) {
-        await saveResults(classResult.termsAvgMetrics, label, 'avg', 1);
-        await saveResults(classResult.termsSumMetrics, label, 'sum', 1);
-        await saveResults(classResult.bigramsTermsAvgMetrics, label, 'avg', 2);
-        await saveResults(classResult.bigramsTermsSumMetrics, label, 'sum', 2);
+    async processBestK(unik, bik) {
+        var results = await loadResults();
+        const label1 = "Happy";
+        const label2 = "Not Happy";
+        await this.saveAllBestKResults(results.happyResults, results.notHappyResults, label1, label2, unik, bik);
+    }
+
+    async saveAllResults(classResult1, classResult2, label1, label2) {
+        await saveResults(classResult1.termsAvgMetrics, label1, 'avg', 1, true);
+        await saveResults(classResult1.termsSumMetrics, label1, 'sum', 1);
+        await saveResults(classResult1.bigramsTermsAvgMetrics, label1, 'avg', 2);
+        await saveResults(classResult1.bigramsTermsSumMetrics, label1, 'sum', 2);
+
+        await saveResults(classResult2.termsAvgMetrics, label2, 'avg', 1);
+        await saveResults(classResult2.termsSumMetrics, label2, 'sum', 1);
+        await saveResults(classResult2.bigramsTermsAvgMetrics, label2, 'avg', 2);
+        await saveResults(classResult2.bigramsTermsSumMetrics, label2, 'sum', 2);
+    }
+
+    // alterar k e verificar melhor
+    //classificação utilizaçao uni,<bigrmas ou ambas, analise disto
+    async saveAllBestKResults(classResults1, classResults2, label1, label2, unik, bik) {
+        await this.saveBestKResults(classResults1.termsAvgMetrics, unik, label1, 'avg', 1, true);
+        await this.saveBestKResults(classResults1.termsSumMetrics, unik, label1, 'sum', 1);
+        await this.saveBestKResults(classResults1.bigramsTermsAvgMetrics, bik, label1, 'avg', 2);
+        await this.saveBestKResults(classResults1.bigramsTermsSumMetrics, bik, label1, 'sum', 2);
+
+        await this.saveBestKResults(classResults2.termsAvgMetrics, unik, label2, 'avg', 1);
+        await this.saveBestKResults(classResults2.termsSumMetrics, unik, label2, 'sum', 1);
+        await this.saveBestKResults(classResults2.bigramsTermsAvgMetrics, bik, label2, 'avg', 2);
+        await this.saveBestKResults(classResults2.bigramsTermsSumMetrics, bik, label2, 'sum', 2);
+    }
+
+    async saveBestKResults(terms, k, label, type, ngram, deleteAll = false) {
+        let bestBinary = selectKBest(terms, k, "binary");
+        let bestOccurrences = selectKBest(terms, k, "occurrences");
+        let bestTf = selectKBest(terms, k, "tf");
+        let bestTfidf = selectKBest(terms, k, "tfidf");
+        await saveBestResults(bestBinary, label, type, ngram, "binary", deleteAll);
+        await saveBestResults(bestOccurrences, label, type, ngram, "occurrences");
+        await saveBestResults(bestTf, label, type, ngram, "tf");
+        await saveBestResults(bestTfidf, label, type, ngram, "tfidf");
     }
 
     processClass(documents, className) {

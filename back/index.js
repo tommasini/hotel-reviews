@@ -6,6 +6,7 @@ import cors from "cors";
 import corsConfig from "./cors.js";
 import bodyParser from 'body-parser';
 import Train from "./train.js";
+import { getBestKResults } from "./database/traningset.js";
 
 const app = express();
 app.use(cors(corsConfig));
@@ -42,8 +43,23 @@ app.post("/cleaner", async function (req, res) {
 
 app.get("/process", async function (req, res) {
   var train = new Train();
-  train.process();
+  await train.process();
+  res.sendStatus(200);
 });
+
+app.get("/processk", async function (req, res) {
+  var unik = req.query.unik || 1000;
+  var bik = req.query.bik || 1000;
+  var train = new Train();
+  await train.processBestK(unik, bik);
+  res.sendStatus(200);
+});
+
+app.get("/results", async function (req, res) {
+  var result = await getBestKResults();
+  res.json(result);
+});
+
 
 var server = app.listen(8081, async function () {
   var host =

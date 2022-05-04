@@ -135,6 +135,27 @@ Document nº: 10337
                         N2 - tokenization: me wife,wife, kid,kid stai,stai valentin,valentin weekend,weekend, realli,realli nice,nice hotel,hotel great,great locat,locat connect,connect rivercent,rivercent mall,mall downtown,downtown san,san antonio,antonio within,within walk,walk distanc,distanc downtown,downtown sa,sa attract,attract alamo,alamo riverwalk,riverwalk riplei,riplei etc,etc great,great servic,servic staff,staff begin,begin end,end definit,definit highli,highli recommend,recommend hotel,hotel stai,stai again,again ever,ever san,san antonio,antonio reason
 
 
+Document nº: 10340
+
+                        N1 - stopWords: found,hotel,clean,nicely,located.,Good,,free,shuttle,airport,leaves,twice,per,hour.,rooms,aren't,nicely,appointed,springhill,suited,stayed,at.,walls,thin,hear,lot,adjacent,rooms.
+
+                        N1 - cleanedText: found hotel clean nicely located good free shuttle airport leaves twice per hour rooms arent nicely appointed springhill suited stayed at walls thin hear lot adjacent rooms
+
+                        N1 - stemmedText: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
+
+                        N1 - tokenization: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
+
+                        =====================================
+
+                        N2 - stopWords: found,hotel,clean,nicely,located.,Good,,free,shuttle,airport,leaves,twice,per,hour.,rooms,aren't,nicely,appointed,springhill,suited,stayed,at.,walls,thin,hear,lot,adjacent,rooms.
+
+                        N2 - cleanedText: found hotel clean nicely located good free shuttle airport leaves twice per hour rooms arent nicely appointed springhill suited stayed at walls thin hear lot adjacent rooms
+
+                        N2 - stemmedText: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
+
+                        N2 - tokenization: found hotel,hotel clean,clean nice,nice locat,locat good,good free,free shuttl,shuttl airport,airport leav,leav twice,twice per,per hour,hour room,room arent,arent nice,nice appoint,appoint springhil,springhil suit,suit stai,stai at,at wall,wall thin,thin hear,hear lot,lot adjac,adjac room
+
+
 Document nº: 10339
 
                         N1 - stopWords: highly,recommend,Hawthorne,Terrace,affordable,,comfortable,spot,Chicago.,staff,pleasant,,room,clean,spacious,,really,liked,neighborhood,location.,Tons,bars,,restaurants,,improv,spot,Wrigley,Field,within,walking,distance.
@@ -156,27 +177,6 @@ While,hotel,provides,Continental,breakfast,,I'd,recommend,going,across,street,(a
                         N2 - stemmedText: highli,recommend,hawthorn,terrac,afford,comfort,spot,chicago,staff,pleasant,room,clean,spaciou,realli,like,neighborhood,locat,ton,bar,restaur,improv,spot,wriglei,field,within,walk,distancewhil,hotel,provid,continent,breakfast,id,recommend,go,across,street,at,least,onc,ann,sather,hotel,offer,free,wireless,internet,access,room,definit,stai,again
 
                         N2 - tokenization: highli recommend,recommend hawthorn,hawthorn terrac,terrac afford,afford comfort,comfort spot,spot chicago,chicago staff,staff pleasant,pleasant room,room clean,clean spaciou,spaciou realli,realli like,like neighborhood,neighborhood locat,locat ton,ton bar,bar restaur,restaur improv,improv spot,spot wriglei,wriglei field,field within,within walk,walk distancewhil,distancewhil hotel,hotel provid,provid continent,continent breakfast,breakfast id,id recommend,recommend go,go across,across street,street at,at least,least onc,onc ann,ann sather,sather hotel,hotel offer,offer free,free wireless,wireless internet,internet access,access room,room definit,definit stai,stai again
-
-
-Document nº: 10340
-
-                        N1 - stopWords: found,hotel,clean,nicely,located.,Good,,free,shuttle,airport,leaves,twice,per,hour.,rooms,aren't,nicely,appointed,springhill,suited,stayed,at.,walls,thin,hear,lot,adjacent,rooms.
-
-                        N1 - cleanedText: found hotel clean nicely located good free shuttle airport leaves twice per hour rooms arent nicely appointed springhill suited stayed at walls thin hear lot adjacent rooms
-
-                        N1 - stemmedText: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
-
-                        N1 - tokenization: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
-
-                        =====================================
-
-                        N2 - stopWords: found,hotel,clean,nicely,located.,Good,,free,shuttle,airport,leaves,twice,per,hour.,rooms,aren't,nicely,appointed,springhill,suited,stayed,at.,walls,thin,hear,lot,adjacent,rooms.
-
-                        N2 - cleanedText: found hotel clean nicely located good free shuttle airport leaves twice per hour rooms arent nicely appointed springhill suited stayed at walls thin hear lot adjacent rooms
-
-                        N2 - stemmedText: found,hotel,clean,nice,locat,good,free,shuttl,airport,leav,twice,per,hour,room,arent,nice,appoint,springhil,suit,stai,at,wall,thin,hear,lot,adjac,room
-
-                        N2 - tokenization: found hotel,hotel clean,clean nice,nice locat,locat good,good free,free shuttl,shuttl airport,airport leav,leav twice,twice per,per hour,hour room,room arent,arent nice,nice appoint,appoint springhil,springhil suit,suit stai,stai at,at wall,wall thin,thin hear,hear lot,lot adjac,adjac room
 
 
 Document nº: 10341
@@ -246,27 +246,6 @@ My,issue,trying,online,check-in,flight,room,not,able,follow,instructions,printin
                         N2 - stemmedText: everyth,want,hotel,,conveni,locat,short,walk,everyth,uptown,charlott,wellequip,room,fridg,microwav,usual,coffe,maker,effici,staff,when,first,check,went,room,room,card,not,work,less,,minut,repairman,arriv,room,let,us,dismantl,reprogram,door,lock,free,wifi,room,,rare,featur,hotelsmi,issu,try,onlin,checkin,flight,room,not,abl,follow,instruct,print,board,pass,printer,busi,centr,instruct,sai,send,document,print,room,easier,just,go,busi,centr,us,comput,checkin,print
 
                         N2 - tokenization: everyth want,want hotel,hotel, conveni,conveni locat,locat short,short walk,walk everyth,everyth uptown,uptown charlott,charlott wellequip,wellequip room,room fridg,fridg microwav,microwav usual,usual coffe,coffe maker,maker effici,effici staff,staff when,when first,first check,check went,went room,room room,room card,card not,not work,work less,less, minut,minut repairman,repairman arriv,arriv room,room let,let us,us dismantl,dismantl reprogram,reprogram door,door lock,lock free,free wifi,wifi room,room, rare,rare featur,featur hotelsmi,hotelsmi issu,issu try,try onlin,onlin checkin,checkin flight,flight room,room not,not abl,abl follow,follow instruct,instruct print,print board,board pass,pass printer,printer busi,busi centr,centr instruct,instruct sai,sai send,send document,document print,print room,room easier,easier just,just go,go busi,busi centr,centr us,us comput,comput checkin,checkin print
-
-
-Document nº: 10349
-
-                        N1 - stopWords: really,liked,hotel.,staff,wonderful,quite,helpful,providing,advice,visiting,Old,Town,things,San,Diego.,lobby-reception,area,,table,set,ice,water,,coffee,,etc.,,convenient,appreciated.,little,sitting,area,off,check-in,area,brochures,galore,,so,sit,&,relax,,drink,coffee,&,look,brochures.,Adjacent,place,serve,breakfast.,really,serve,nice,breakfast,,waffles,,etc.,hotel,rooms,nice.,Nothing,fancy,,pretty,spacious,,clean,comfortable.,Overall,money,,thought,pretty,booking,hotel.,Good,value,money.
-
-                        N1 - cleanedText: really liked hotel staff wonderful quite helpful providing advice visiting old town things san diego lobbyreception area table set ice water coffee etc convenient appreciated little sitting area off checkin area brochures galore so sit  relax drink coffee  look brochures adjacent place serve breakfast really serve nice breakfast waffles etc hotel rooms nice nothing fancy pretty spacious clean comfortable overall money thought pretty booking hotel good value money
-
-                        N1 - stemmedText: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
-
-                        N1 - tokenization: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
-
-                        =====================================
-
-                        N2 - stopWords: really,liked,hotel.,staff,wonderful,quite,helpful,providing,advice,visiting,Old,Town,things,San,Diego.,lobby-reception,area,,table,set,ice,water,,coffee,,etc.,,convenient,appreciated.,little,sitting,area,off,check-in,area,brochures,galore,,so,sit,&,relax,,drink,coffee,&,look,brochures.,Adjacent,place,serve,breakfast.,really,serve,nice,breakfast,,waffles,,etc.,hotel,rooms,nice.,Nothing,fancy,,pretty,spacious,,clean,comfortable.,Overall,money,,thought,pretty,booking,hotel.,Good,value,money.
-
-                        N2 - cleanedText: really liked hotel staff wonderful quite helpful providing advice visiting old town things san diego lobbyreception area table set ice water coffee etc convenient appreciated little sitting area off checkin area brochures galore so sit  relax drink coffee  look brochures adjacent place serve breakfast really serve nice breakfast waffles etc hotel rooms nice nothing fancy pretty spacious clean comfortable overall money thought pretty booking hotel good value money
-
-                        N2 - stemmedText: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
-
-                        N2 - tokenization: realli like,like hotel,hotel staff,staff wonder,wonder quit,quit help,help provid,provid advic,advic visit,visit old,old town,town thing,thing san,san diego,diego lobbyrecept,lobbyrecept area,area tabl,tabl set,set ic,ic water,water coffe,coffe etc,etc conveni,conveni appreci,appreci littl,littl sit,sit area,area off,off checkin,checkin area,area brochur,brochur galor,galor so,so sit,sit, relax,relax drink,drink coffe,coffe, look,look brochur,brochur adjac,adjac place,place serv,serv breakfast,breakfast realli,realli serv,serv nice,nice breakfast,breakfast waffl,waffl etc,etc hotel,hotel room,room nice,nice noth,noth fanci,fanci pretti,pretti spaciou,spaciou clean,clean comfort,comfort overal,overal monei,monei thought,thought pretti,pretti book,book hotel,hotel good,good valu,valu monei
 
 
 Document nº: 10350
@@ -340,6 +319,27 @@ All,all,,great,place,highly,recommend.
                         N2 - stemmedText: stai,girlfriend,long,weekend,thei,gave,us,nice,comp,upgrad,checkinthank,hotel,beauti,servic,good,for,fivestar,fell,short,coupl,areasther,larg,gross,look,yellow,stain,comfort,ask,bring,new,on,not,pleasant,sightalso,coupl,gui,bell,staff,blatantli,ogl,girlfriend,walk,elevatorveri,tacki,grant,she,attract,think,staff,littl,class,thatal,all,great,place,highli,recommend
 
                         N2 - tokenization: stai girlfriend,girlfriend long,long weekend,weekend thei,thei gave,gave us,us nice,nice comp,comp upgrad,upgrad checkinthank,checkinthank hotel,hotel beauti,beauti servic,servic good,good for,for fivestar,fivestar fell,fell short,short coupl,coupl areasther,areasther larg,larg gross,gross look,look yellow,yellow stain,stain comfort,comfort ask,ask bring,bring new,new on,on not,not pleasant,pleasant sightalso,sightalso coupl,coupl gui,gui bell,bell staff,staff blatantli,blatantli ogl,ogl girlfriend,girlfriend walk,walk elevatorveri,elevatorveri tacki,tacki grant,grant she,she attract,attract think,think staff,staff littl,littl class,class thatal,thatal all,all great,great place,place highli,highli recommend
+
+
+Document nº: 10349
+
+                        N1 - stopWords: really,liked,hotel.,staff,wonderful,quite,helpful,providing,advice,visiting,Old,Town,things,San,Diego.,lobby-reception,area,,table,set,ice,water,,coffee,,etc.,,convenient,appreciated.,little,sitting,area,off,check-in,area,brochures,galore,,so,sit,&,relax,,drink,coffee,&,look,brochures.,Adjacent,place,serve,breakfast.,really,serve,nice,breakfast,,waffles,,etc.,hotel,rooms,nice.,Nothing,fancy,,pretty,spacious,,clean,comfortable.,Overall,money,,thought,pretty,booking,hotel.,Good,value,money.
+
+                        N1 - cleanedText: really liked hotel staff wonderful quite helpful providing advice visiting old town things san diego lobbyreception area table set ice water coffee etc convenient appreciated little sitting area off checkin area brochures galore so sit  relax drink coffee  look brochures adjacent place serve breakfast really serve nice breakfast waffles etc hotel rooms nice nothing fancy pretty spacious clean comfortable overall money thought pretty booking hotel good value money
+
+                        N1 - stemmedText: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
+
+                        N1 - tokenization: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
+
+                        =====================================
+
+                        N2 - stopWords: really,liked,hotel.,staff,wonderful,quite,helpful,providing,advice,visiting,Old,Town,things,San,Diego.,lobby-reception,area,,table,set,ice,water,,coffee,,etc.,,convenient,appreciated.,little,sitting,area,off,check-in,area,brochures,galore,,so,sit,&,relax,,drink,coffee,&,look,brochures.,Adjacent,place,serve,breakfast.,really,serve,nice,breakfast,,waffles,,etc.,hotel,rooms,nice.,Nothing,fancy,,pretty,spacious,,clean,comfortable.,Overall,money,,thought,pretty,booking,hotel.,Good,value,money.
+
+                        N2 - cleanedText: really liked hotel staff wonderful quite helpful providing advice visiting old town things san diego lobbyreception area table set ice water coffee etc convenient appreciated little sitting area off checkin area brochures galore so sit  relax drink coffee  look brochures adjacent place serve breakfast really serve nice breakfast waffles etc hotel rooms nice nothing fancy pretty spacious clean comfortable overall money thought pretty booking hotel good value money
+
+                        N2 - stemmedText: realli,like,hotel,staff,wonder,quit,help,provid,advic,visit,old,town,thing,san,diego,lobbyrecept,area,tabl,set,ic,water,coffe,etc,conveni,appreci,littl,sit,area,off,checkin,area,brochur,galor,so,sit,,relax,drink,coffe,,look,brochur,adjac,place,serv,breakfast,realli,serv,nice,breakfast,waffl,etc,hotel,room,nice,noth,fanci,pretti,spaciou,clean,comfort,overal,monei,thought,pretti,book,hotel,good,valu,monei
+
+                        N2 - tokenization: realli like,like hotel,hotel staff,staff wonder,wonder quit,quit help,help provid,provid advic,advic visit,visit old,old town,town thing,thing san,san diego,diego lobbyrecept,lobbyrecept area,area tabl,tabl set,set ic,ic water,water coffe,coffe etc,etc conveni,conveni appreci,appreci littl,littl sit,sit area,area off,off checkin,checkin area,area brochur,brochur galor,galor so,so sit,sit, relax,relax drink,drink coffe,coffe, look,look brochur,brochur adjac,adjac place,place serv,serv breakfast,breakfast realli,realli serv,serv nice,nice breakfast,breakfast waffl,waffl etc,etc hotel,hotel room,room nice,nice noth,noth fanci,fanci pretti,pretti spaciou,spaciou clean,clean comfort,comfort overal,overal monei,monei thought,thought pretti,pretti book,book hotel,hotel good,good valu,valu monei
 
 
 Document nº: 10354
@@ -448,33 +448,6 @@ Overall,,so,happy,choice,when,go,back,Seattle,whatever,reason,,will,staying,ther
                         N2 - tokenization: book three,three night,night inn,inn el,el gaucho,gaucho base,base review,review tripadvisorcom,tripadvisorcom when,when boyfriend,boyfriend arriv,arriv, hour,hour flight,flight ny,ny happi,happi inn,inn locat,locat, minut,minut airport,airport taxi,taxi hotel,hotel locat,locat second,second floor,floor steakhous,steakhous no,no elev,elev no,no bellhop,bellhop so,so carri,carri bag,bag flight,flight half,half stair,stair i,i knew,knew review,review long,long flight,flight forgotten,forgotten woman,woman front,front desk,desk help,help even,even leav,leav person,person check,check room,room readi,readi arriv,arriv earli,earli checkin,checkin wa,wa she,she gave,gave us,us larg,larg cold,cold bottl,bottl evian,evian goodi,goodi bag,bag larg,larg cooki,cooki cd,cd short,short tour,tour room,room it,it amen,amen given,given, room,room kei,kei help,help the,the room,room suit,suit thei,thei suit,suit face,face st,st avenu,avenu bed,bed look,look on,on larg,larg pillow,pillow amazingli,amazingli soft,soft comfort,comfort forc,forc ourselv,ourselv test,test it,it explor,explor around,around town,town room,room, tv,tv handi,handi see,see seahawk,seahawk vs,vs giant,giant sundai,sundai quest,quest field,field stadium,stadium so,so abl,abl keep,keep track,track team,team highlight,highlight pictureperfect,pictureperfect tv,tv bathroom,bathroom stall,stall shower,shower pretti,pretti basic,basic, hairdryer,hairdryer lot,lot towel,towel complimentari,complimentari toileti,toileti room,room closet,closet dresser,dresser iron,iron board,board, ultrasoft,ultrasoft bathrob,bathrob seper,seper coffeeoffic,coffeeoffic closet,closet pretti,pretti conveni,conveni yet,yet wai,wai leather,leather sofa,sofa chair,chair nice,nice well,well us,us thing,thing room,room pile,pile seattl,seattl guid,guid sofa,sofa tabl,tabl us,us find,find restaur,restaur entir,entir stai,stai the,the inn,inn locat,locat half,half mile,mile seattl,seattl center,center with,with space,space needl,needl less,less mile,mile striaight,striaight down,down st,st pike,pike market,market it,it littl,littl further,further pioneer,pioneer squar,squar quest,quest field,field stadium,stadium it,it, block,block awai,awai seattl,seattl port,port first,first avenu,avenu abund,abund restaur,restaur shop,shop so,so wont,wont worri,worri take,take taxi,taxi dinner,dinner there,there even,even big,big umbrella,umbrella room,room closet,closet just,just case,case short,short walk,walk rain,rain overal,overal so,so happi,happi choic,choic when,when go,go back,back seattl,seattl whatev,whatev reason,reason will,will stai,stai there,there locat,locat comfort,comfort moder,moder price,price, night,night seattl,seattl hard,hard beat,beat friendli,friendli femal,femal employe,employe made,made perfect,perfect stai
 
 
-Document nº: 10360
-
-                        N1 - stopWords: Looking,tranquil,retreat,Denver,close,great,restaurants,,shopping,,Botanic,Gardens,,Art,Museum,theCherry,Creek,neighborhood?,place!
-We,read,slow,parking,valet,times,,waits,retrieval,car,averaged,two,minutes!,suppose,wanted,car,during,intervals,high,turnover,(check-in,check-out),,takelonger.,suggest,ask,valet,staff,concerned.
-Back,hotel,room,we,specified,room,mountain,views,nice,one.,Large,large,bathroom,separate,tub,bath,appointed,marble,floors,granite,countertops.,rooms,facing,west,summer,,want,leave,AC,little,lower,leave,dinner.,Linens,comfortable,pretty.,wallpaper,bold,dramatics...nice,touch!
-Hope,return,soon,relaxing,stay...eat,drink,North,restaurant...--,steps,front,door,JW,Marriott.,will,not,disappointed!
-
-                        N1 - cleanedText: looking tranquil retreat denver close great restaurants shopping botanic gardens art museum thecherry creek neighborhood placewe read slow parking valet times waits retrieval car averaged two minutes suppose wanted car during intervals high turnover checkin checkout takelonger suggest ask valet staff concernedback hotel roomwe specified room mountain views nice one large large bathroom separate tub bath appointed marble floors granite countertops rooms facing west summer want leave ac little lower leave dinner linens comfortable pretty wallpaper bold dramaticsnice touchhope return soon relaxing stayeat drink north restaurant steps front door jw marriott will not disappointed
-
-                        N1 - stemmedText: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
-
-                        N1 - tokenization: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
-
-                        =====================================
-
-                        N2 - stopWords: Looking,tranquil,retreat,Denver,close,great,restaurants,,shopping,,Botanic,Gardens,,Art,Museum,theCherry,Creek,neighborhood?,place!
-We,read,slow,parking,valet,times,,waits,retrieval,car,averaged,two,minutes!,suppose,wanted,car,during,intervals,high,turnover,(check-in,check-out),,takelonger.,suggest,ask,valet,staff,concerned.
-Back,hotel,room,we,specified,room,mountain,views,nice,one.,Large,large,bathroom,separate,tub,bath,appointed,marble,floors,granite,countertops.,rooms,facing,west,summer,,want,leave,AC,little,lower,leave,dinner.,Linens,comfortable,pretty.,wallpaper,bold,dramatics...nice,touch!
-Hope,return,soon,relaxing,stay...eat,drink,North,restaurant...--,steps,front,door,JW,Marriott.,will,not,disappointed!
-
-                        N2 - cleanedText: looking tranquil retreat denver close great restaurants shopping botanic gardens art museum thecherry creek neighborhood placewe read slow parking valet times waits retrieval car averaged two minutes suppose wanted car during intervals high turnover checkin checkout takelonger suggest ask valet staff concernedback hotel roomwe specified room mountain views nice one large large bathroom separate tub bath appointed marble floors granite countertops rooms facing west summer want leave ac little lower leave dinner linens comfortable pretty wallpaper bold dramaticsnice touchhope return soon relaxing stayeat drink north restaurant steps front door jw marriott will not disappointed
-
-                        N2 - stemmedText: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
-
-                        N2 - tokenization: look tranquil,tranquil retreat,retreat denver,denver close,close great,great restaur,restaur shop,shop botan,botan garden,garden art,art museum,museum thecherri,thecherri creek,creek neighborhood,neighborhood placew,placew read,read slow,slow park,park valet,valet time,time wait,wait retriev,retriev car,car averag,averag two,two minut,minut suppos,suppos want,want car,car dure,dure interv,interv high,high turnov,turnov checkin,checkin checkout,checkout takelong,takelong suggest,suggest ask,ask valet,valet staff,staff concernedback,concernedback hotel,hotel roomw,roomw specifi,specifi room,room mountain,mountain view,view nice,nice on,on larg,larg larg,larg bathroom,bathroom separ,separ tub,tub bath,bath appoint,appoint marbl,marbl floor,floor granit,granit countertop,countertop room,room face,face west,west summer,summer want,want leav,leav ac,ac littl,littl lower,lower leav,leav dinner,dinner linen,linen comfort,comfort pretti,pretti wallpap,wallpap bold,bold dramaticsnic,dramaticsnic touchhop,touchhop return,return soon,soon relax,relax stayeat,stayeat drink,drink north,north restaur,restaur step,step front,front door,door jw,jw marriott,marriott will,will not,not disappoint
-
-
 Document nº: 10361
 
                         N1 - stopWords: Booked,-,rooms,,check-in,upgraded,us---,rooms,suites.,front,desk,staff,AJ,,wonderful,,made,us,feel,great.,Didn't,use,pool,,so,can't,write,it.,Right,across,road,Texas,Roadhouse.,breakfast,scrambled,eggs,,biscuits,&,gravy,,waffles.,Will,stay,again.
@@ -515,6 +488,33 @@ Document nº: 10363
                         N2 - stemmedText: im,not,fan,hotel,so,hate,busi,travel,hotel,real,pleasur,fantast,popart,style,enthusiast,staff,modest,room,eleg,pop,furnish,i,hate,overstuf,room,great,locat,though,littl,bit,walk,nearest,metro,station
 
                         N2 - tokenization: im not,not fan,fan hotel,hotel so,so hate,hate busi,busi travel,travel hotel,hotel real,real pleasur,pleasur fantast,fantast popart,popart style,style enthusiast,enthusiast staff,staff modest,modest room,room eleg,eleg pop,pop furnish,furnish i,i hate,hate overstuf,overstuf room,room great,great locat,locat though,though littl,littl bit,bit walk,walk nearest,nearest metro,metro station
+
+
+Document nº: 10360
+
+                        N1 - stopWords: Looking,tranquil,retreat,Denver,close,great,restaurants,,shopping,,Botanic,Gardens,,Art,Museum,theCherry,Creek,neighborhood?,place!
+We,read,slow,parking,valet,times,,waits,retrieval,car,averaged,two,minutes!,suppose,wanted,car,during,intervals,high,turnover,(check-in,check-out),,takelonger.,suggest,ask,valet,staff,concerned.
+Back,hotel,room,we,specified,room,mountain,views,nice,one.,Large,large,bathroom,separate,tub,bath,appointed,marble,floors,granite,countertops.,rooms,facing,west,summer,,want,leave,AC,little,lower,leave,dinner.,Linens,comfortable,pretty.,wallpaper,bold,dramatics...nice,touch!
+Hope,return,soon,relaxing,stay...eat,drink,North,restaurant...--,steps,front,door,JW,Marriott.,will,not,disappointed!
+
+                        N1 - cleanedText: looking tranquil retreat denver close great restaurants shopping botanic gardens art museum thecherry creek neighborhood placewe read slow parking valet times waits retrieval car averaged two minutes suppose wanted car during intervals high turnover checkin checkout takelonger suggest ask valet staff concernedback hotel roomwe specified room mountain views nice one large large bathroom separate tub bath appointed marble floors granite countertops rooms facing west summer want leave ac little lower leave dinner linens comfortable pretty wallpaper bold dramaticsnice touchhope return soon relaxing stayeat drink north restaurant steps front door jw marriott will not disappointed
+
+                        N1 - stemmedText: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
+
+                        N1 - tokenization: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
+
+                        =====================================
+
+                        N2 - stopWords: Looking,tranquil,retreat,Denver,close,great,restaurants,,shopping,,Botanic,Gardens,,Art,Museum,theCherry,Creek,neighborhood?,place!
+We,read,slow,parking,valet,times,,waits,retrieval,car,averaged,two,minutes!,suppose,wanted,car,during,intervals,high,turnover,(check-in,check-out),,takelonger.,suggest,ask,valet,staff,concerned.
+Back,hotel,room,we,specified,room,mountain,views,nice,one.,Large,large,bathroom,separate,tub,bath,appointed,marble,floors,granite,countertops.,rooms,facing,west,summer,,want,leave,AC,little,lower,leave,dinner.,Linens,comfortable,pretty.,wallpaper,bold,dramatics...nice,touch!
+Hope,return,soon,relaxing,stay...eat,drink,North,restaurant...--,steps,front,door,JW,Marriott.,will,not,disappointed!
+
+                        N2 - cleanedText: looking tranquil retreat denver close great restaurants shopping botanic gardens art museum thecherry creek neighborhood placewe read slow parking valet times waits retrieval car averaged two minutes suppose wanted car during intervals high turnover checkin checkout takelonger suggest ask valet staff concernedback hotel roomwe specified room mountain views nice one large large bathroom separate tub bath appointed marble floors granite countertops rooms facing west summer want leave ac little lower leave dinner linens comfortable pretty wallpaper bold dramaticsnice touchhope return soon relaxing stayeat drink north restaurant steps front door jw marriott will not disappointed
+
+                        N2 - stemmedText: look,tranquil,retreat,denver,close,great,restaur,shop,botan,garden,art,museum,thecherri,creek,neighborhood,placew,read,slow,park,valet,time,wait,retriev,car,averag,two,minut,suppos,want,car,dure,interv,high,turnov,checkin,checkout,takelong,suggest,ask,valet,staff,concernedback,hotel,roomw,specifi,room,mountain,view,nice,on,larg,larg,bathroom,separ,tub,bath,appoint,marbl,floor,granit,countertop,room,face,west,summer,want,leav,ac,littl,lower,leav,dinner,linen,comfort,pretti,wallpap,bold,dramaticsnic,touchhop,return,soon,relax,stayeat,drink,north,restaur,step,front,door,jw,marriott,will,not,disappoint
+
+                        N2 - tokenization: look tranquil,tranquil retreat,retreat denver,denver close,close great,great restaur,restaur shop,shop botan,botan garden,garden art,art museum,museum thecherri,thecherri creek,creek neighborhood,neighborhood placew,placew read,read slow,slow park,park valet,valet time,time wait,wait retriev,retriev car,car averag,averag two,two minut,minut suppos,suppos want,want car,car dure,dure interv,interv high,high turnov,turnov checkin,checkin checkout,checkout takelong,takelong suggest,suggest ask,ask valet,valet staff,staff concernedback,concernedback hotel,hotel roomw,roomw specifi,specifi room,room mountain,mountain view,view nice,nice on,on larg,larg larg,larg bathroom,bathroom separ,separ tub,tub bath,bath appoint,appoint marbl,marbl floor,floor granit,granit countertop,countertop room,room face,face west,west summer,summer want,want leav,leav ac,ac littl,littl lower,lower leav,leav dinner,dinner linen,linen comfort,comfort pretti,pretti wallpap,wallpap bold,bold dramaticsnic,dramaticsnic touchhop,touchhop return,return soon,soon relax,relax stayeat,stayeat drink,drink north,north restaur,restaur step,step front,front door,door jw,jw marriott,marriott will,will not,not disappoint
 
 
 Document nº: 10366
