@@ -8,6 +8,7 @@ export default class Term {
         this.idf = 0;
         this.tfidf = 0;
         this.docId = docId;
+        this.metric = null;
     }
 
     incrementBinary(value) {
@@ -34,6 +35,10 @@ export default class Term {
         this.tfidf = value;
     }
 
+    setMetric(value) {
+        this.metric = value;
+    }
+
     setBinary(value) {
         this.binary = value;
     }
@@ -54,9 +59,10 @@ Term.partialCreation = function (name, idf) {
     return term;
 };
 
-Term.fullCreation = function (name, binary, occurrences, tf, idf, tfidf, docId) {
+Term.fullCreation = function (name, binary, occurrences, tf, idf, tfidf, metric, docId) {
     let term = new Term(name, binary, occurrences, tf, docId);
     term.setIDF(idf);
     term.setTFIDF(tfidf);
+    term.setMetric(metric);
     return term;
 };

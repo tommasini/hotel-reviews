@@ -48,8 +48,8 @@ app.get("/process", async function (req, res) {
 });
 
 app.get("/processk", async function (req, res) {
-  var unik = req.query.unik || 1000;
-  var bik = req.query.bik || 1000;
+  var unik = req.query.unik || 1;
+  var bik = req.query.bik || 1;
   var train = new Train();
   await train.processBestK(unik, bik);
   res.sendStatus(200);
@@ -57,6 +57,7 @@ app.get("/processk", async function (req, res) {
 
 app.get("/results", async function (req, res) {
   var result = await getBestKResults();
+
   res.json(result);
 });
 

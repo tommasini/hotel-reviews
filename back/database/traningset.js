@@ -18,7 +18,7 @@ export async function getBestKResults() {
                                     JOIN results r ON r.Id = br.result_id`);
     await pool.end();
 
-    return rest.rows;
+    return parseRowsToTerms(rest.rows, true);
 }
 
 export async function loadResults() {
@@ -26,6 +26,10 @@ export async function loadResults() {
     const rest = await pool.query(`SELECT * FROM results`);
     await pool.end();
 
+    return parseRowsToTerms(rest.rows);
+}
+
+function parseRowsToTerms(rows, formatByMetrics = false) {
     var happyResults = {
         termsSumMetrics: [],
         termsAvgMetrics: [],
@@ -40,41 +44,72 @@ export async function loadResults() {
         bigramsTermsAvgMetrics: [],
     }
 
-    rest.rows.forEach(element => {
-        var term = new Term.fullCreation(element.name, element.binaryvalue, element.occurrences, element.tf, element.idf, element.tfidf);
+    rows.forEach(element => {
+        var term = new Term.fullCreation(element.name, element.binaryvalue, element.occurrences, element.tf, element.idf, element.tfidf, element.metric);
         if (element.label == "Happy") {
-            if (element.ngram == 1 && element.type == "avg") {
-                happyResults.termsAvgMetrics.push(term);
-            }
-            if (element.ngram == 1 && element.type == "sum") {
-                happyResults.termsSumMetrics.push(term);
-            }
-            if (element.ngram == 2 && element.type == "avg") {
-                happyResults.bigramsTermsAvgMetrics.push(term);
-            }
-            if (element.ngram == 2 && element.type == "sum") {
-                happyResults.bigramsTermsSumMetrics.push(term);
-            }
+            pushToClassObject(element, happyResults, term);
         }
         else {
-            if (element.ngram == 1 && element.type == "avg") {
-                notHappyResults.termsAvgMetrics.push(term);
-            }
-            if (element.ngram == 1 && element.type == "sum") {
-                notHappyResults.termsSumMetrics.push(term);
-            }
-            if (element.ngram == 2 && element.type == "avg") {
-                notHappyResults.bigramsTermsAvgMetrics.push(term);
-            }
-            if (element.ngram == 2 && element.type == "sum") {
-                notHappyResults.bigramsTermsSumMetrics.push(term);
-            }
+            pushToClassObject(element, notHappyResults, term);
         }
     });
+
+    if (formatByMetrics) {
+        happyResults.termsSumMetrics = splitByMetrics(happyResults.termsSumMetrics);
+        happyResults.termsAvgMetrics = splitByMetrics(happyResults.termsAvgMetrics);
+        happyResults.bigramsTermsSumMetrics = splitByMetrics(happyResults.bigramsTermsSumMetrics);
+        happyResults.bigramsTermsAvgMetrics = splitByMetrics(happyResults.bigramsTermsAvgMetrics);
+        notHappyResults.termsSumMetrics = splitByMetrics(notHappyResults.termsSumMetrics);
+        notHappyResults.termsAvgMetrics = splitByMetrics(notHappyResults.termsAvgMetrics);
+        notHappyResults.bigramsTermsSumMetrics = splitByMetrics(notHappyResults.bigramsTermsSumMetrics);
+        notHappyResults.bigramsTermsAvgMetrics = splitByMetrics(notHappyResults.bigramsTermsAvgMetrics);
+    }
+
     return {
         happyResults,
         notHappyResults
     };
+}
+
+function splitByMetrics(terms) {
+    var resultByMetrics = {
+        binary: [],
+        occurrences: [],
+        tf: [],
+        tfidf: []
+    }
+
+    terms.forEach((term) => {
+        if (term.metric == "occurrences") {
+            resultByMetrics.occurrences.push(term);
+        }
+        else if (term.metric == "tf") {
+            resultByMetrics.tf.push(term);
+        }
+        else if (term.metric == "tfidf") {
+            resultByMetrics.tfidf.push(term);
+        }
+        else if (term.metric == "binary") {
+            resultByMetrics.binary.push(term);
+        }
+    });
+
+    return resultByMetrics;
+}
+
+function pushToClassObject(element, classObject, term) {
+    if (element.ngram == 1 && element.type == "avg") {
+        classObject.termsAvgMetrics.push(term);
+    }
+    if (element.ngram == 1 && element.type == "sum") {
+        classObject.termsSumMetrics.push(term);
+    }
+    if (element.ngram == 2 && element.type == "avg") {
+        classObject.bigramsTermsAvgMetrics.push(term);
+    }
+    if (element.ngram == 2 && element.type == "sum") {
+        classObject.bigramsTermsSumMetrics.push(term);
+    }
 }
 
 export async function saveResults(terms, label, type, ngram, deleteAll = false) {

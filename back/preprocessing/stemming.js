@@ -2,9 +2,9 @@ import { stemmer } from 'stemmer';
 import ngram from './tokenization.js';
 
 export const stemmerWithSplit = (text) => {
-    return text.split(' ').map((word) => {
+    return text.replace(/ +(?= )/g, '').split(' ').map((word) => {
         return stemmer(word)
-    })
+    });
 }
 
 export const stemmerWithNgram = (text, n) => {
