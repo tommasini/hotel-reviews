@@ -8,6 +8,20 @@ type Props = {};
 
 const Lab5: React.FC<Props> = () => {
   const [tabValue, setTabValue] = useState(0);
+
+  const labelTitle = (arg: string) => {
+    switch (arg) {
+      case "termsAvgMetrics":
+        return "Average Metrics";
+      case "termsSumMetrics":
+        return "Sum Metrics";
+      case "bigramsTermsAvgMetrics":
+        return "Bigrams Average Metrics";
+      case "bigramsTermsSumMetrics":
+        return "Bigrams Sum Metrics";
+    }
+  };
+
   //Level3
   const [selectedClass, setSelectedClass] = useState("happy");
   const [isUnigramOrBigram, setIsUnigramOrBigram] = useState("unigram");
@@ -85,14 +99,14 @@ const Lab5: React.FC<Props> = () => {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor={uniOrBigram1}>{uniOrBigram1}</label>
+            <label htmlFor={uniOrBigram1}>{labelTitle(uniOrBigram1)}</label>
             <Table
               id={uniOrBigram1}
               rows={rows1}
               selectedMetric={selectedMetric}
             />
             <div style={{ padding: "10px" }} />
-            <label htmlFor={uniOrBigram2}>{uniOrBigram2}</label>
+            <label htmlFor={uniOrBigram2}>{labelTitle(uniOrBigram2)}</label>
             <Table
               id={uniOrBigram2}
               rows={rows2}
@@ -206,14 +220,14 @@ const Lab5: React.FC<Props> = () => {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor={uniOrBigram1}>{uniOrBigram1}</label>
+            <label htmlFor={uniOrBigram1}>{labelTitle(uniOrBigram1)}</label>
             <Table
               id={uniOrBigram1}
               rows={rows1}
               selectedMetric={selectedMetric}
             />
             <div style={{ padding: "10px" }} />
-            <label htmlFor={uniOrBigram2}>{uniOrBigram2}</label>
+            <label htmlFor={uniOrBigram2}>{labelTitle(uniOrBigram2)}</label>
             <Table
               id={uniOrBigram2}
               rows={rows2}
