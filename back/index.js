@@ -1,20 +1,27 @@
 import { getDocument, getDocuments } from "./database/corpus.js";
 import cleaner from "./preprocessing/index.js";
 
-import express from 'express';
+import express from "express";
 import cors from "cors";
 import corsConfig from "./cors.js";
-import bodyParser from 'body-parser';
+import bodyParser from "body-parser";
 import Train from "./train.js";
 import { getBestKResults } from "./database/traningset.js";
 
 const app = express();
 app.use(cors(corsConfig));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "true");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Origin,Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+
   next();
 });
 
@@ -60,7 +67,6 @@ app.get("/results", async function (req, res) {
 
   res.json(result);
 });
-
 
 var server = app.listen(8081, async function () {
   var host =

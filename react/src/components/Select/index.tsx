@@ -4,27 +4,39 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { setegid } from "process";
 
-export default function BasicSelect() {
-  const [age, setAge] = React.useState("");
+export default function BasicSelect({
+  label,
+  menuItems,
+  selected,
+  setSelected,
+}: {
+  label: string;
+  menuItems: string[];
+  selected: string;
+  setSelected: (arg: string) => void;
+}) {
+  // const [selected, setSelected] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSelected(event.target.value as string);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={selected}
+          label
           onChange={handleChange}
         >
-          <MenuItem value={"happy"}>Happy</MenuItem>
-          <MenuItem value={"unhappy"}>Unhappy</MenuItem>
+          {menuItems.map((menuItem) => (
+            <MenuItem value={menuItem.toLowerCase()}>{menuItem}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>
