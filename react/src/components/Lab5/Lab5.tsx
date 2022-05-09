@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Select from "../Select";
 import Table from "../Table";
 import Tabs from "../Tabs";
@@ -108,14 +108,17 @@ const Lab5: React.FC<Props> = () => {
   const [level4data, setLevel4Data] = useState<any>(null);
   const [kValues, setKValues] = useState({ k1: 1, k2: 1 });
 
-  const fetchLevel4Data = async (values: { k1: number; k2: number }) => {
-    const res = await api.get(`/processk?unik=${values.k1}&bik=${values.k2}`);
-    console.log("res", res);
+  const fetchLevel4Data = useCallback(
+    async (values: { k1: number; k2: number }) => {
+      const res = await api.get(`/processk?unik=${values.k1}&bik=${values.k2}`);
 
-    const { data } = await api.get("/results");
+      const { data } = await api.get("/results");
+      console.log("res", data);
 
-    setLevel4Data(data);
-  };
+      setLevel4Data(data);
+    },
+    [kValues]
+  );
 
   useEffect(() => {
     console.log("tabValue", tabValue);
@@ -145,12 +148,12 @@ const Lab5: React.FC<Props> = () => {
         : "termsSumMetrics";
 
     const rows1 =
-      level3data?.[
+      level4data?.[
         selectedClass === "happy" ? "happyResults" : "notHappyResults"
       ]?.[uniOrBigram1][selectedMetric === "all" ? "binary" : selectedMetric];
 
     const rows2 =
-      level3data?.[
+      level4data?.[
         selectedClass === "happy" ? "happyResults" : "notHappyResults"
       ]?.[uniOrBigram2][selectedMetric === "all" ? "binary" : selectedMetric];
 
