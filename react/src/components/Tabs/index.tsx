@@ -1,6 +1,6 @@
 import * as React from "react";
 //@ts-ignore
-import Tabs from "@mui/material/Tabs";
+import TabsRN from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -41,33 +41,34 @@ function a11yProps(index: number) {
 type Props = {
   lvl3: React.ReactNode;
   lvl4: React.ReactNode;
+  tabValue: number;
+  setTabValue: (arg: number) => void;
 };
 
 const Tabs: React.FC<Props> = (props) => {
-  const { lvl3, lvl4 } = props;
-  const [value, setValue] = React.useState(0);
+  const { lvl3, lvl4, tabValue, setTabValue } = props;
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setTabValue(newValue);
   };
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
+        <TabsRN
           //@ts-ignore
-          value={value}
+          value={tabValue}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
           <Tab label="Lvl3" {...a11yProps(0)} />
           <Tab label="Lvl4" {...a11yProps(1)} />
-        </Tabs>
+        </TabsRN>
       </Box>
-      <TabPanel value={0} index={0}>
+      <TabPanel value={tabValue} index={0}>
         {lvl3}
       </TabPanel>
-      <TabPanel value={1} index={1}>
+      <TabPanel value={tabValue} index={1}>
         {lvl4}
       </TabPanel>
     </Box>

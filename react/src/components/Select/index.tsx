@@ -11,11 +11,13 @@ export default function BasicSelect({
   menuItems,
   selected,
   setSelected,
+  disabled = false,
 }: {
   label: string;
   menuItems: string[];
   selected: string;
   setSelected: (arg: string) => void;
+  disabled?: boolean;
 }) {
   // const [selected, setSelected] = React.useState("");
 
@@ -33,6 +35,7 @@ export default function BasicSelect({
           value={selected}
           label
           onChange={handleChange}
+          disabled={disabled}
         >
           {menuItems.map((menuItem) => (
             <MenuItem value={menuItem.toLowerCase()}>{menuItem}</MenuItem>

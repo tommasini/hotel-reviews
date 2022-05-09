@@ -7,6 +7,7 @@ import api from "../../api";
 type Props = {};
 
 const Lab5: React.FC<Props> = () => {
+  const [tabValue, setTabValue] = useState(0);
   //Level3
   const [selectedClass, setSelectedClass] = useState("happy");
   const [isUnigramOrBigram, setIsUnigramOrBigram] = useState("unigram");
@@ -16,7 +17,7 @@ const Lab5: React.FC<Props> = () => {
   const unigramOrBigram = ["unigram", "bigram"];
   const metrics = ["binary", "occurrences", "tf", "tfidf", "all"];
 
-  const [level3data, setLevel3Data] = useState<any>();
+  const [level3data, setLevel3Data] = useState<any>(null);
 
   const fetchLevel3Data = async () => {
     const { data } = await api.get("/results");
@@ -25,32 +26,33 @@ const Lab5: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    fetchLevel3Data();
-  }, []);
+    tabValue === 0 && fetchLevel3Data();
+  }, [tabValue]);
 
   const Lvl3 = () => {
     if (!level3data) {
       return <div></div>;
     }
 
-    const columns = Object.keys(
-      level3data?.[
-        selectedClass === "happy" ? "happyResults" : "notHappyResults"
-      ]?.[
-        isUnigramOrBigram === "bigram"
-          ? "bigramsTermsAvgMetrics"
-          : "termsAvgMetrics"
-      ]
-    );
+    const uniOrBigram1 =
+      isUnigramOrBigram === "bigram"
+        ? "bigramsTermsAvgMetrics"
+        : "termsAvgMetrics";
 
-    const rows =
+    const uniOrBigram2 =
+      isUnigramOrBigram === "bigram"
+        ? "bigramsTermsSumMetrics"
+        : "termsSumMetrics";
+
+    const rows1 =
       level3data?.[
         selectedClass === "happy" ? "happyResults" : "notHappyResults"
-      ]?.[
-        isUnigramOrBigram === "bigram"
-          ? "bigramsTermsAvgMetrics"
-          : "termsAvgMetrics"
-      ][selectedMetric];
+      ]?.[uniOrBigram1][selectedMetric === "all" ? "binary" : selectedMetric];
+
+    const rows2 =
+      level3data?.[
+        selectedClass === "happy" ? "happyResults" : "notHappyResults"
+      ]?.[uniOrBigram2][selectedMetric === "all" ? "binary" : selectedMetric];
 
     return (
       <div style={{ width: "100%", height: "100%" }}>
@@ -82,14 +84,151 @@ const Lab5: React.FC<Props> = () => {
             paddingTop: "100px",
           }}
         >
-          <div>
-            <Table columns={columns} rows={rows} />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label htmlFor={uniOrBigram1}>{uniOrBigram1}</label>
+            <Table
+              id={uniOrBigram1}
+              rows={rows1}
+              selectedMetric={selectedMetric}
+            />
+            <div style={{ padding: "10px" }} />
+            <label htmlFor={uniOrBigram2}>{uniOrBigram2}</label>
+            <Table
+              id={uniOrBigram2}
+              rows={rows2}
+              selectedMetric={selectedMetric}
+            />
           </div>
         </div>
       </div>
     );
   };
 
-  return <Lvl3 />;
+  //Level4
+  const [level4data, setLevel4Data] = useState<any>(null);
+  const [kValues, setKValues] = useState({ k1: 1, k2: 1 });
+
+  const fetchLevel4Data = async (values: { k1: number; k2: number }) => {
+    const res = await api.get(`/processk?unik=${values.k1}&bik=${values.k2}`);
+    console.log("res", res);
+
+    const { data } = await api.get("/results");
+
+    setLevel4Data(data);
+  };
+
+  useEffect(() => {
+    console.log("tabValue", tabValue);
+    if (tabValue === 1) {
+      setSelectedMetric("tfidf");
+      fetchLevel4Data(kValues);
+    }
+  }, [kValues, tabValue]);
+
+  const Lvl4 = () => {
+    const handleChangeKValues = (e: any) => {
+      const id = e.target.id;
+      const value = e.target.value;
+      console.log("id,value", id, value);
+
+      setKValues({ ...kValues, [id]: value });
+    };
+
+    const uniOrBigram1 =
+      isUnigramOrBigram === "bigram"
+        ? "bigramsTermsAvgMetrics"
+        : "termsAvgMetrics";
+
+    const uniOrBigram2 =
+      isUnigramOrBigram === "bigram"
+        ? "bigramsTermsSumMetrics"
+        : "termsSumMetrics";
+
+    const rows1 =
+      level3data?.[
+        selectedClass === "happy" ? "happyResults" : "notHappyResults"
+      ]?.[uniOrBigram1][selectedMetric === "all" ? "binary" : selectedMetric];
+
+    const rows2 =
+      level3data?.[
+        selectedClass === "happy" ? "happyResults" : "notHappyResults"
+      ]?.[uniOrBigram2][selectedMetric === "all" ? "binary" : selectedMetric];
+
+    return (
+      <div style={{ width: "100%", height: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Select
+            label={"Class"}
+            menuItems={classes}
+            selected={selectedClass}
+            setSelected={setSelectedClass}
+          />
+          <Select
+            label={"Unigram or Bigram"}
+            menuItems={unigramOrBigram}
+            selected={isUnigramOrBigram}
+            setSelected={setIsUnigramOrBigram}
+          />
+          <Select
+            label={"Metric"}
+            menuItems={metrics}
+            selected={selectedMetric}
+            setSelected={setSelectedMetric}
+            disabled={true}
+          />
+
+          <div>
+            <label htmlFor="k1">K1</label>
+            <input
+              id="k1"
+              type={"number"}
+              value={kValues.k1}
+              onChange={handleChangeKValues}
+            />
+            <label htmlFor="k2">K2</label>
+            <input
+              id="k2"
+              type={"number"}
+              value={kValues.k2}
+              onChange={handleChangeKValues}
+            />
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: "100px",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label htmlFor={uniOrBigram1}>{uniOrBigram1}</label>
+            <Table
+              id={uniOrBigram1}
+              rows={rows1}
+              selectedMetric={selectedMetric}
+            />
+            <div style={{ padding: "10px" }} />
+            <label htmlFor={uniOrBigram2}>{uniOrBigram2}</label>
+            <Table
+              id={uniOrBigram2}
+              rows={rows2}
+              selectedMetric={selectedMetric}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <Tabs
+      tabValue={tabValue}
+      setTabValue={setTabValue}
+      lvl3={<Lvl3 />}
+      lvl4={<Lvl4 />}
+    />
+  );
 };
 export default Lab5;
