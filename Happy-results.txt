@@ -941,6 +941,27 @@ There,two,issues:,four,---minute,unloading,parking,places,front,fight,cabbies,va
                         N2 - tokenization: told john,john dilling,dilling onc,onc rob,rob place,place when,when bank,bank certainli,certainli histor,histor project,project imag,imag s,s hotel,hotel clean,clean comfort,comfort good,good servic,servic excel,excel breakfast,breakfast host,host will,will feel,feel home,home better,better averag,averag hilton,hilton garden,garden innther,innther two,two issu,issu four,four minut,minut unload,unload park,park place,place front,front fight,fight cabbi,cabbi valet,valet parker,parker on,on even,even moment,moment valet,valet peopl,peopl shamelessli,shamelessli hustl,hustl tip,tip will,will demand,demand move,move not,not paid,paid off,off self,self park,park recommend,recommend garag,garag just,just feet,feet south,south west,west side,side pennsylvania,pennsylvania av,av pull,pull ticket,ticket valid,valid hotel,hotel second,second issu,issu blackout,blackout curtain,curtain inch,inch short,short new,new window,window instal,instal mean,mean eastfac,eastfac room,room learn,learn sunris,sunris second,second happen
 
 
+Document nº: 10388
+
+                        N1 - stopWords: month,service,fantastic,rooms,clean,staff,friendly,-:--,kick,back,wonderful,great,shuttle,service,anywere,need,go,love,place
+
+                        N1 - cleanedText: month service fantastic rooms clean staff friendly  kick back wonderful great shuttle service anywere need go love place
+
+                        N1 - stemmedText: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
+
+                        N1 - tokenization: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
+
+                        =====================================
+
+                        N2 - stopWords: month,service,fantastic,rooms,clean,staff,friendly,-:--,kick,back,wonderful,great,shuttle,service,anywere,need,go,love,place
+
+                        N2 - cleanedText: month service fantastic rooms clean staff friendly  kick back wonderful great shuttle service anywere need go love place
+
+                        N2 - stemmedText: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
+
+                        N2 - tokenization: month servic,servic fantast,fantast room,room clean,clean staff,staff friendli,friendli kick,kick back,back wonder,wonder great,great shuttl,shuttl servic,servic anywer,anywer need,need go,go love,love place
+
+
 Document nº: 10389
 
                         N1 - stopWords: Staying,LA,budget,easy,,especially,specific,area,need,be.,hotel,right,Silverlake-Echo,Park,area,,great,central,location,Hollywood,---.,ran,no,traffic,,husband,working,,able,enjoy,neighborhood.,hotel,clean,,staff,friendly,accommodating,,underground,parking,kept,locked,night.,available,DSL,looks,decent,Thai,restaurant,open,late,downstairs,(I,didn't,try,it).,definitely,stay,again.,comfortable,stay,around,$--,,can't,go,wrong.
@@ -1110,27 +1131,6 @@ Document nº: 10397
                         N2 - stemmedText: wonder,pool,larg,clean,room,decor,offer,bridg,termin,food,littl,expens,expect,excel,salmon,salad
 
                         N2 - tokenization: wonder pool,pool larg,larg clean,clean room,room decor,decor offer,offer bridg,bridg termin,termin food,food littl,littl expens,expens expect,expect excel,excel salmon,salmon salad
-
-
-Document nº: 10388
-
-                        N1 - stopWords: month,service,fantastic,rooms,clean,staff,friendly,-:--,kick,back,wonderful,great,shuttle,service,anywere,need,go,love,place
-
-                        N1 - cleanedText: month service fantastic rooms clean staff friendly  kick back wonderful great shuttle service anywere need go love place
-
-                        N1 - stemmedText: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
-
-                        N1 - tokenization: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
-
-                        =====================================
-
-                        N2 - stopWords: month,service,fantastic,rooms,clean,staff,friendly,-:--,kick,back,wonderful,great,shuttle,service,anywere,need,go,love,place
-
-                        N2 - cleanedText: month service fantastic rooms clean staff friendly  kick back wonderful great shuttle service anywere need go love place
-
-                        N2 - stemmedText: month,servic,fantast,room,clean,staff,friendli,kick,back,wonder,great,shuttl,servic,anywer,need,go,love,place
-
-                        N2 - tokenization: month servic,servic fantast,fantast room,room clean,clean staff,staff friendli,friendli kick,kick back,back wonder,wonder great,great shuttl,shuttl servic,servic anywer,anywer need,need go,go love,love place
 
 
 Document nº: 10398

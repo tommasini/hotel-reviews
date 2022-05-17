@@ -12,6 +12,16 @@ export async function getTrainingSet() {
     return rest.rows;
 }
 
+export async function getValidationSet() {
+    const pool = new Pool(credentials);
+    const rest = await pool.query(`Select * from corpus
+                                    where Id not in (Select corpus_id FROM trainingset)
+                                    limit 50`);
+    await pool.end();
+
+    return rest.rows;
+}
+
 export async function getBestKResults() {
     const pool = new Pool(credentials);
     const rest = await pool.query(`SELECT r.*, br.metric FROM bestresults br
@@ -76,7 +86,8 @@ function splitByMetrics(terms) {
         binary: [],
         occurrences: [],
         tf: [],
-        tfidf: []
+        tfidf: [],
+        idf: []
     }
 
     terms.forEach((term) => {

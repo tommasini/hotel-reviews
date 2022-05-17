@@ -6,7 +6,8 @@ import cors from "cors";
 import corsConfig from "./cors.js";
 import bodyParser from 'body-parser';
 import Train from "./train.js";
-import { getBestKResults } from "./database/traningset.js";
+import { getBestKResults, getValidationSet } from "./database/traningset.js";
+import { cosineSimilarity } from "./classifier.js";
 
 const app = express();
 app.use(cors(corsConfig));
@@ -61,6 +62,21 @@ app.get("/results", async function (req, res) {
   res.json(result);
 });
 
+app.get("/classify", async function (req, res) {
+  var train = new Train();
+  var classVectors = await train.classVectors();
+
+  var validationSet = await getValidationSet();
+  var results = validationSet.map((value, index, array) => {
+    return {
+      "text": value.description,
+      "real": value.label,
+      "classified": cosineSimilarity(value.description, classVectors)
+    }
+  })
+
+  res.json(results);
+});
 
 var server = app.listen(8081, async function () {
   var host =

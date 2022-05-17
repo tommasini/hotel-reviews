@@ -4,27 +4,18 @@ import fs from 'fs';
 import { addUniqueTerms, binaryVector, numberOfOccurrencesVector, tfVector, sumVector, avgVector } from './features/bagofWords.js';
 import Term from './Term.js';
 import { selectKBest } from './features/featureSelection.js';
+import { getBestKResults } from "./database/traningset.js";
 
-/*var cp = [{
-            browser: 'InternetExplorer',
-            description: 'The room was small and messy',
-            device: 'Desktop',
-            id: 10329,
-            label: 'happy'
-        }, {
-            browser: 'InternetExplorer',
-            description: 'The breakfast was not very good',
-            device: 'Desktop',
-            id: 10328,
-            label: 'happy'
-        }, {
-            browser: 'InternetExplorer',
-            description: 'Breakfast very few choices',
-            device: 'Desktop',
-            id: 10327,
-            label: 'happy'
-        }];*/
 export default class Train {
+    constructor() {
+        this.label1 = "Happy";
+        this.label2 = "Not Happy";
+        this.occurrences = "occurrences";
+        this.binary = "binary";
+        this.tf = "tf";
+        this.tfidf = "tfidf";
+    }
+
     getTermsFormatted(bafOfWords, docVectors) {
         return bafOfWords.map((term, i) => {
             return docVectors.map((docVector) => {
@@ -33,26 +24,38 @@ export default class Train {
         });
     }
 
+    async classVectors() {
+        var results = await getBestKResults();
+
+        return {
+            happy: {
+                bagofwords: results.happyResults.termsAvgMetrics.tfidf.map(e => e.name),
+                idf: results.happyResults.termsAvgMetrics.tfidf.map(e => e.idf),
+                tfidf: results.happyResults.termsAvgMetrics.tfidf.map(e => e.tfidf),
+            },
+            nothappy: {
+                bagofwords: results.notHappyResults.termsAvgMetrics.tfidf.map(e => e.name),
+                idf: results.notHappyResults.termsAvgMetrics.tfidf.map(e => e.idf),
+                tfidf: results.notHappyResults.termsAvgMetrics.tfidf.map(e => e.tfidf),
+            }
+        };
+    }
+
     async process() {
         var corpus = await getTrainingSet();
 
         const happyDocs = corpus.filter((item) => { return item.label === 'happy' });
         const notHappyDocs = corpus.filter((item) => { return item.label === 'not happy' });
 
-        var happyResults = this.processClass(happyDocs, "Happy");
-        var notHappyResults = this.processClass(notHappyDocs, "Not Happy");
+        var happyResults = this.processClass(happyDocs, this.label1);
+        var notHappyResults = this.processClass(notHappyDocs, this.label2);
 
-        const label1 = "Happy";
-        const label2 = "Not Happy";
-        await this.saveAllResults(happyResults, notHappyResults, label1, label2);
-
+        await this.saveAllResults(happyResults, notHappyResults, this.label1, this.label2);
     }
 
     async processBestK(unik, bik) {
         var results = await loadResults();
-        const label1 = "Happy";
-        const label2 = "Not Happy";
-        await this.saveAllBestKResults(results.happyResults, results.notHappyResults, label1, label2, unik, bik);
+        await this.saveAllBestKResults(results.happyResults, results.notHappyResults, this.label1, this.label2, unik, bik);
     }
 
     async saveAllResults(classResult1, classResult2, label1, label2) {
@@ -82,18 +85,18 @@ export default class Train {
     }
 
     async saveBestKResults(terms, k, label, type, ngram, deleteAll = false) {
-        let bestBinary = selectKBest(terms, k, "binary");
-        let bestOccurrences = selectKBest(terms, k, "occurrences");
-        let bestTf = selectKBest(terms, k, "tf");
-        let bestTfidf = selectKBest(terms, k, "tfidf");
-        await saveBestResults(bestBinary, label, type, ngram, "binary", deleteAll);
-        await saveBestResults(bestOccurrences, label, type, ngram, "occurrences");
-        await saveBestResults(bestTf, label, type, ngram, "tf");
-        await saveBestResults(bestTfidf, label, type, ngram, "tfidf");
+        let bestBinary = selectKBest(terms, k, this.binary);
+        let bestOccurrences = selectKBest(terms, k, this.occurrences);
+        let bestTf = selectKBest(terms, k, this.tf);
+        let bestTfidf = selectKBest(terms, k, this.tfidf);
+        await saveBestResults(bestBinary, label, type, ngram, this.binary, deleteAll);
+        await saveBestResults(bestOccurrences, label, type, ngram, this.occurrences);
+        await saveBestResults(bestTf, label, type, ngram, this.tf);
+        await saveBestResults(bestTfidf, label, type, ngram, this.tfidf);
     }
 
     processClass(documents, className) {
-        const classResultsProcessed = this.getResultsProcessed(documents);
+        const classResultsProcessed = this.getCleanedResults(documents);
         const classUnigramsMetricsVectors = this.getMetricsVectors(classResultsProcessed.uniqueTermsUnigrams,
             classResultsProcessed.documentsProcessed.map((value) => { return { terms: value.n1.tokenization, id: value.id } }));
         const classBigramsMetricsVectors = this.getMetricsVectors(classResultsProcessed.uniqueTermsBigrams,
@@ -134,7 +137,7 @@ export default class Train {
         });
     }
 
-    getResultsProcessed(docs) {
+    getCleanedResults(docs) {
         let uniqueTermsUnigrams = [];
         let uniqueTermsBigrams = [];
 
