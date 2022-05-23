@@ -7,7 +7,7 @@ import corsConfig from "./cors.js";
 import bodyParser from "body-parser";
 import Train from "./train.js";
 import { getBestKResults, getValidationSet } from "./database/traningset.js";
-import { cosineSimilarity } from "./classifier.js";
+import { cosineSimilarity, classifyBayes } from "./classifier.js";
 
 const app = express();
 app.use(cors(corsConfig));
@@ -69,7 +69,7 @@ app.get("/results", async function (req, res) {
   res.json(result);
 });
 
-app.get("/classify", async function (req, res) {
+app.get("/classify-cosine", async function (req, res) {
   var train = new Train();
   var classVectors = await train.classVectors();
 
@@ -80,10 +80,43 @@ app.get("/classify", async function (req, res) {
       "real": value.label,
       "classified": cosineSimilarity(value.description, classVectors)
     }
-  })
+  });
 
-  res.json(results);
+  res.json({
+    validation: validateResults(results),
+    results
+  });
 });
+
+app.get("/classify-bayes", async function (req, res) {
+  var train = new Train();
+  var classVectors = await train.classVectors();
+  var happyLikelihood = await train.classLikelihood("happy");
+  var notHappyLikelihood = await train.classLikelihood("not happy");
+
+  var validationSet = await getValidationSet();
+  var results = validationSet.map((value) => {
+    return {
+      "text": value.description,
+      "real": value.label,
+      "classified": classifyBayes(value.description, classVectors, happyLikelihood, notHappyLikelihood)
+    }
+  });
+
+
+  res.json({
+    validation: validateResults(results),
+    results
+  });
+});
+
+function validateResults(results) {
+  let correctResults = results.filter((value) => value.real == value.classified);
+  return {
+    correct: Math.round((correctResults.length / results.length) * 100) + "%",
+    incorrect: Math.round(((results.length - correctResults.length) / results.length) * 100) + "%",
+  }
+}
 
 var server = app.listen(8081, async function () {
   var host =

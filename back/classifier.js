@@ -1,7 +1,6 @@
 import cleaner from './preprocessing/index.js';
 import { addUniqueTerms, tfVector } from "./features/bagOfWords.js";
 
-
 export function cosineSimilarity(text, classVectors) {
     var cleaningResult = cleaner(text, 1);
     var uniqueTerms = addUniqueTerms(cleaningResult.tokenization, []);
@@ -18,7 +17,7 @@ export function cosineSimilarity(text, classVectors) {
         return value * tfVectorResult[index];
     });
     var nothappySimilarity = calculateCosineSimilarity(classVectors.nothappy.tfidf, tfidfVector);
-    return happySimilarity < nothappySimilarity ? "Happy" : "Not Happy";
+    return happySimilarity < nothappySimilarity ? "happy" : "not happy";
 }
 
 function calculateCosineSimilarity(v1, v2) {
@@ -34,4 +33,24 @@ function calculateCosineSimilarity(v1, v2) {
     mV2 = Math.sqrt(mV2);
     var similarity = (dotproduct) / (mV1) * (mV2)
     return similarity;
+}
+
+export function classifyBayes(text, classVectors, happyLikelihood, notHappyLikelihood) {
+    var cleaningResult = cleaner(text, 1);
+    var uniqueTerms = addUniqueTerms(cleaningResult.tokenization, []);
+    //happy
+    var tfVectorResult = tfVector(classVectors.happy.bagofwords, uniqueTerms);
+    var termLikehood = tfVectorResult.map((value) => {
+        return (value + 1) / tfVectorResult.length;
+    });
+    var happyResult = termLikehood.reduce((a, b) => a * b) * happyLikelihood;
+
+    //not happy
+    tfVectorResult = tfVector(classVectors.nothappy.bagofwords, uniqueTerms);
+    termLikehood = tfVectorResult.map((value) => {
+        return (value + 1) / tfVectorResult.length;
+    });
+    var notHappyResult = termLikehood.reduce((a, b) => a * b) * notHappyLikelihood;
+
+    return happyResult >= notHappyResult ? "happy" : "not happy";;
 }

@@ -24,6 +24,13 @@ export default class Train {
         });
     }
 
+    async classLikelihood(label) {
+        let trainigSet = await getTrainingSet();
+        let classTrainingSet = trainigSet.filter((value) => value.label == label);
+
+        return classTrainingSet.length / trainigSet.length;
+    }
+
     async classVectors() {
         var results = await getBestKResults();
 
